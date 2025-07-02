@@ -6,6 +6,7 @@ const fetchCards = async () => {
         let restaurants = await res?.data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
         return restaurants
     } catch (error) {
+        alert("CORS Error Encountered")
         console.log("Error getting in api call", error)
     }
 }
