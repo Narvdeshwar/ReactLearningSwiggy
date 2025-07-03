@@ -1,5 +1,5 @@
 import React from 'react'
-import { ImageUrl } from '../utils/urls'
+import { ImageUrl } from '../../../../utils/urls'
 
 function RestaurantCard({ data }) {
     const { name, avgRating, isOpen, locality, cloudinaryImageId, costForTwo, cuisines } = data.info;
