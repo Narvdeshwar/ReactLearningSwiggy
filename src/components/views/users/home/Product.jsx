@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Shimmer from "../../../ui/shimmer/Shimmer"
 import RestaurantCard from './RestaurantCard'
-import fetchCards from '../../../../api/ApiCalls'
+import {fetchRestaurantList} from '../../../../api/ApiCalls'
 
 const Product = () => {
     const [restaurant, setRestarant] = useState([])
@@ -10,7 +10,7 @@ const Product = () => {
 
     useEffect(() => {
         async function fetchData() {
-            let res = await fetchCards();
+            let res = await fetchRestaurantList();
             setRestarant(res)
             setFilteredData(res)
         }
@@ -38,10 +38,10 @@ const Product = () => {
             <button type='submit' onClick={searchHandler} className='px-3 py-1 bg-blue-400 text-white rounded-md cursor-pointer'>Search</button>
         </div>
         <div className='card-body flex flex-wrap gap-4 justify-center'>
-            {restaurant.length === 0 ?
+            {restaurant?.length === 0 ?
                 <Shimmer />
                 :
-                filteredData.map((item) => (<RestaurantCard data={item} key={item?.info?.id} />))}
+                filteredData?.map((item) => (<RestaurantCard data={item} key={item?.info?.id} />))}
         </div>
     </>)
 }

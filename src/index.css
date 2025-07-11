@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+/* Apply to the whole page */
+::-webkit-scrollbar {
+  width: 5px; /* or height for horizontal */
+  padding: 10px;
+  margin: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Track color */
+  margin: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent; /* Scrollbar handle */
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: transparent; /* On hover */
+  margin: 10px;
+}
