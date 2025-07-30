@@ -1,22 +1,23 @@
-import { useEffect, useState } from 'react';
-import { fetchRestaurantMenu } from '../../../../api/ApiCalls';
-import { FOOD_IMG_URL } from '../../../../utils/urls';
 import { Link, useParams } from 'react-router-dom';
 import MenuItem from './MenuItem';
+import useRestaurantMenu from '../../../../utils/useRestaurantMenu';
+import Shimmer from '../../../ui/shimmer/Shimmer';
+import { ChevronDown } from 'lucide-react';
+import { useState } from 'react';
 
 function RestaurantMenu() {
-    const [menuList, setMenuList] = useState([]);
+    const [isOpen, setIsOpen] = useState({});
     const { restId } = useParams();
+    const menuList = useRestaurantMenu(restId);
 
-    useEffect(() => {
-        async function fetchData() {
-            const res = await fetchRestaurantMenu(restId);
-            console.log(res);
-            setMenuList(res);
-        }
-        fetchData();
-    }, [restId]);
-
+    console.log("cutrrent menu lsit", menuList);
+    const handler = (index) => {
+        console.log("button is clicked")
+        setIsOpen((prev) => ({
+            ...prev,
+            [index]: !prev[index],
+        }))
+    }
     return (
         <div className="w-[70%] mx-auto h-[calc(100vh-72px)] overflow-y-auto text-white">
             {/* Sticky Header */}
@@ -35,13 +36,25 @@ function RestaurantMenu() {
                     </span>
                 </Link>
             </div>
-
-
-
             {/* Menu Items */}
-            <div className="mt-4 space-y-4">
-                {menuList?.map((item) => (
-                    <MenuItem key={item?.card?.info?.id} item={item} />
+            <div className="mt-4 space-y-3">
+                {menuList === null ? <Shimmer /> : menuList?.map((item, index) => (
+                    <div className='bg-slate-900 px-4 py-2 rounded-md shadow-md transition-all duration-300' key={index}>
+                        <div className='flex justify-between'>
+                            <p>{item.card.card.title}{" "}({item.card.card.itemCards.length})</p>
+                            <button className='cursor-pointer' onClick={() => handler(index)}><ChevronDown /></button>
+                        </div>
+                        {isOpen[index] && <div
+                            className={`overflow-hidden transition-all duration-500 ${isOpen[index] ? "max-h-fit-content opacity-100" : "max-h-0 opacity-0"
+                                }`}
+                        >
+                            <MenuItem
+                                key={item?.card?.card?.info?.id || index}
+                                data={item?.card?.card?.itemCards}
+                            />
+                        </div>}
+                    </div>
+
                 ))}
             </div>
         </div>

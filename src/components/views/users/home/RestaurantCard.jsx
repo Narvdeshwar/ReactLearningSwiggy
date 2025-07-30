@@ -1,4 +1,3 @@
-import React from 'react'
 import { ImageUrl } from '../../../../utils/urls'
 import { Link } from 'react-router-dom';
 
@@ -6,7 +5,7 @@ function RestaurantCard({ data }) {
   const { name, avgRating, isOpen, locality, cloudinaryImageId, costForTwo, cuisines, id } = data.info;
   console.log(id)
   return (
-    <div className='card border w-64 rounded-md border-blue-400/50 shadow-md flex flex-col overflow-hidden bg-slate-300'>
+    <div className='card border rounded-md border-blue-400/50 shadow-md flex flex-col overflow-hidden bg-slate-300'>
 
       {/* Image */}
       <img src={`${ImageUrl}${cloudinaryImageId}`} alt={name} className='object-cover w-full h-48' />
