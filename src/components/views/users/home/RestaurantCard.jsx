@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function RestaurantCard({ data }) {
   const { name, avgRating, isOpen, locality, cloudinaryImageId, costForTwo, cuisines, id } = data.info;
-  console.log(id)
+  console.log("sdfgsg", data)
   return (
     <div className='card border rounded-md border-blue-400/50 shadow-md flex flex-col overflow-hidden bg-slate-300'>
 
@@ -18,7 +18,7 @@ function RestaurantCard({ data }) {
         <p className='text-sm text-center'>{costForTwo}</p>
 
         {/* Button pushed to bottom */}
-        <Link to={`/rest/${id}`} className='bg-blue-600 text-white px-3 py-1 shadow-md rounded-md cursor-pointer mt-auto text-center'>
+        <Link to={`/restaurant-name/${name}/${id}`} className='bg-blue-600 text-white px-3 py-1 shadow-md rounded-md cursor-pointer mt-auto text-center'>
           {isOpen ? "See Menu Items" : "Closed"}
         </Link>
       </div>
